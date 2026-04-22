@@ -1,13 +1,13 @@
-FROM amazoncorretto:17-alpine AS build
+# Stage 1: Build using Maven image (no wrapper needed)
+FROM maven:3.8.4-eclipse-temurin-17 AS build
 WORKDIR /app
-COPY mvnw .
-COPY .mvn .mvn
 COPY pom.xml .
-RUN ./mvnw dependency:go-offline
+RUN mvn dependency:go-offline
 COPY src ./src
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
-FROM amazoncorretto:17-alpine
+# Stage 2: Run using lightweight Eclipse Temurin JRE
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/AssetInventoryApplication-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
