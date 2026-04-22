@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Return Device</title><style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI'}body{background:#f0f2f5;display:flex}.sidebar{width:260px;background:#1a2c3e;color:white;height:100vh;position:fixed}.sidebar a{display:block;padding:12px20px;color:#ecf0f1;text-decoration:none}.main{margin-left:260px;padding:20px}.form-card{background:white;padding:30px;border-radius:12px;max-width:500px;margin:40px auto}select,button{width:100%;padding:10px;margin:8px 0}button{background:#2ecc71;color:white;border:none;border-radius:6px}
+</style></head>
+<body><div class="sidebar"><h2 style="padding:20px">📱 Airtel Inventory</h2><a href="/">Dashboard</a><a href="/assets">Assets</a><a href="/employees">Employees</a><a href="/assignments">Assignments</a></div>
+<div class="main"><div class="form-card"><h2>Return Device</h2><form action="/assignments/return" method="post"><input type="hidden" name="assignmentId" th:value="${assignmentId}"><label>Condition after return</label><select name="condition"><option th:each="c : ${conditions}" th:value="${c}" th:text="${c}"></option></select><button type="submit">Confirm Return</button></form></div></div></body>
+</html>

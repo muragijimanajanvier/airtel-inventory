@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Assignments</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+    body { display:flex; background:#f0f2f5; }
+    .sidebar { width:260px; background:#1a2c3e; color:white; height:100vh; position:fixed; }
+    .sidebar a { display:block; padding:12px 20px; color:#ecf0f1; text-decoration:none; }
+    .sidebar a:hover { background:#2ecc71; }
+    .main { margin-left:260px; padding:20px; width:100%; }
+    .card { background:white; padding:20px; border-radius:12px; margin-bottom:20px; }
+    select, button, input { padding:8px; margin:5px; border-radius:6px; border:1px solid #ccc; }
+    table { width:100%; background:white; border-collapse:collapse; }
+    th, td { padding:10px; border-bottom:1px solid #ddd; }
+    .badge-active { background:#e67e22; color:white; padding:4px 8px; border-radius:20px; }
+    .badge-returned { background:#27ae60; color:white; }
+    .btn-return { background:#e67e22; color:white; padding:4px 8px; text-decoration:none; border-radius:4px; }
+    .btn-delete { background:#e74c3c; color:white; padding:4px 8px; text-decoration:none; border-radius:4px; margin-left:5px; }
+</style></head>
+<body>
+<div class="sidebar"><h2 style="padding:20px">📱 Airtel Inventory</h2><a href="/">Dashboard</a><a href="/assets">Assets</a><a href="/employees">Employees</a><a href="/assignments">Assignments</a><a href="/reports">Reports</a></div>
+<div class="main">
+    <div class="card">
+        <h3>Assign Device</h3>
+        <form action="/assignments/assign" method="post">
+            <select name="assetId" required><option value="">Select Asset</option><option th:each="a : ${assets}" th:value="${a.id}" th:text="${a.deviceName + ' - ' + a.serialNumber}"></option></select>
+            <select name="employeeId" required><option value="">Select Employee</option><option th:each="e : ${employees}" th:value="${e.id}" th:text="${e.name}"></option></select>
+            <input type="text" name="notes" placeholder="Notes">
+            <button type="submit">Assign</button>
+        </form>
+    </div>
+    <h3>Assignments</h3>
+    <div th:if="${message}" style="background:#d4edda; padding:10px; margin:10px 0" th:text="${message}"></div>
+    <div th:if="${error}" style="background:#f8d7da; color:#721c24; padding:10px" th:text="${error}"></div>
+    <table>
+        <thead><tr><th>Asset</th><th>Employee</th><th>Issue Date</th><th>Return Date</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+            <tr th:each="ass : ${assignments}">
+                <td th:text="${ass.asset.deviceName}"></td><td th:text="${ass.employee.name}"></td><td th:text="${ass.issueDate}"></td><td th:text="${ass.returnDate}">-</td>
+                <td><span th:class="${ass.status == 'ACTIVE'} ? 'badge-active' : 'badge-returned'" th:text="${ass.status}"></span></td>
+                <td>
+                    <a th:if="${ass.status == 'ACTIVE'}" th:href="@{/assignments/return/{id}(id=${ass.id})}" class="btn-return">Return</a>
+                    <a th:href="@{/assignments/delete/{id}(id=${ass.id})}" class="btn-delete" onclick="return confirm('Delete this assignment?')">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports & Audit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            display: flex;
+            background: #f0f2f5;
+        }
+        .sidebar {
+            width: 260px;
+            background: #1a2c3e;
+            color: white;
+            height: 100vh;
+            position: fixed;
+        }
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background: #2ecc71;
+        }
+        .main {
+            margin-left: 260px;
+            padding: 20px;
+            width: 100%;
+        }
+        .filters {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        input, select, button {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #1a2c3e;
+            color: white;
+        }
+        .audit-log {
+            margin-top: 30px;
+        }
+        /* Print Report Section - Single line, no wrap */
+        .print-section {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .print-buttons {
+            display: flex;
+            flex-wrap: nowrap;      /* ✅ force single line */
+            gap: 12px;
+            overflow-x: auto;       /* ✅ scroll on small screens */
+            margin-top: 10px;
+            padding-bottom: 5px;
+        }
+        /* Individual button styles */
+        .btn-assets {
+            background: #2ecc71;    /* green */
+            color: white;
+        }
+        .btn-assets:hover {
+            background: #27ae60;
+        }
+        .btn-employees {
+            background: #3498db;    /* blue */
+            color: white;
+        }
+        .btn-employees:hover {
+            background: #2980b9;
+        }
+        .btn-assignments {
+            background: #5dade2;    /* sky blue */
+            color: white;
+        }
+        .btn-assignments:hover {
+            background: #3498db;
+        }
+        .btn-audit {
+            background: #e67e22;    /* orange */
+            color: white;
+        }
+        .btn-audit:hover {
+            background: #d35400;
+        }
+        .print-btn {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;    /* ✅ prevent button text wrapping */
+        }
+        h2, h3 {
+            color: #1a2c3e;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            .print-buttons {
+                gap: 8px;
+            }
+            .print-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2 style="padding:20px">📱 Airtel Inventory</h2>
+    <a href="/">Dashboard</a>
+    <a href="/assets">Assets</a>
+    <a href="/employees">Employees</a>
+    <a href="/assignments">Assignments</a>
+    <a href="/reports">Reports</a>
+</div>
+
+<div class="main">
+    <h2>Reports & Audit Trail</h2>
+
+    <!-- Print Reports Section (single line, colored buttons) -->
+    <div class="print-section">
+        <h3>📄 Print Reports</h3>
+        <div class="print-buttons">
+            <a href="/reports/assets" class="print-btn btn-assets" target="_blank">🖨️ Print Assets Report</a>
+            <a href="/reports/employees" class="print-btn btn-employees" target="_blank">🖨️ Print Employees Report</a>
+            <a href="/reports/assignments" class="print-btn btn-assignments" target="_blank">🖨️ Print Assignments Report</a>
+            <a href="/reports/audit" class="print-btn btn-audit" target="_blank">🖨️ Print Audit Log Report</a>
+        </div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filters">
+        <form action="/reports" method="get">
+            <input type="text" name="keyword" placeholder="Search by name/serial" th:value="${keyword}">
+            <select name="deviceType">
+                <option value="">All Types</option>
+                <option th:each="t : ${deviceTypes}" th:value="${t}" th:text="${t}" th:selected="${selectedDeviceType == t}"></option>
+            </select>
+            <select name="status">
+                <option value="">All Status</option>
+                <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}" th:selected="${selectedStatus == s}"></option>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+
+    <!-- Filtered Assets Table -->
+    <h3>Filtered Assets</h3>
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Serial</th><th>Type</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="a : ${assets}">
+                <td th:text="${a.deviceName}"></td>
+                <td th:text="${a.serialNumber}"></td>
+                <td th:text="${a.deviceType}"></td>
+                <td th:text="${a.status}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Audit History -->
+    <div class="audit-log">
+        <h3>Audit History</h3>
+        <table>
+            <thead>
+                <tr><th>Action</th><th>Assignment ID</th><th>Details</th><th>Timestamp</th></tr>
+            </thead>
+            <tbody>
+                <tr th:each="log : ${auditLogs}">
+                    <td th:text="${log.action}"></td>
+                    <td th:text="${log.assignment?.id}">-</td>
+                    <td th:text="${log.details}"></td>
+                    <td th:text="${log.timestamp}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
