@@ -45,7 +45,6 @@
             border-bottom: 1px solid #e9ecef;
             padding-bottom: 12px;
         }
-        /* Demo credentials – vertical layout */
         .demo-credentials {
             background: #e9f5ff;
             border-left: 4px solid #2ecc71;
@@ -55,7 +54,7 @@
             font-size: 14px;
             color: #1e2a3a;
             display: flex;
-            flex-direction: column;   /* ✅ vertical stacking */
+            flex-direction: column;
             gap: 6px;
         }
         .demo-credentials .cred-row {
@@ -66,17 +65,6 @@
         }
         .demo-credentials strong {
             color: #2c3e50;
-        }
-        .demo-credentials .highlight {
-            background: #2ecc71;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: bold;
-            display: inline-block;
-            align-self: flex-start;
-            margin-top: 4px;
         }
         .input-group {
             text-align: left;
@@ -158,21 +146,19 @@
         <h1>📱 Airtel Inventory</h1>
         <div class="subtitle">Sign in to continue</div>
 
-        <!-- Demo credentials – stacked vertically -->
+        <!-- SysAdmin credentials – stacked vertically -->
         <div class="demo-credentials">
             <div class="cred-row">
-                <span>🔐 <strong>login credentials:</strong></span>
-            </div><
-            <div class="cred-row">
-                <span>👤 Username: <strong>Admin</strong></span>
+                <span>🔐 <strong>SysAdmin credentials:</strong></span>
             </div>
             <div class="cred-row">
-                <span>🔑 Password: <strong>Admin123</strong></span>
+                <span>👤 Username: <strong>24RP04809</strong></span>
             </div>
-            
+            <div class="cred-row">
+                <span>🔑 Password: <strong>24RP04727</strong></span>
+            </div>
         </div>
 
-        <!-- error / logout messages -->
         <div th:if="${param.error}" class="error-message">
             ❌ Invalid username or password. Please try again.
         </div>
@@ -180,7 +166,6 @@
             ✅ You have been logged out successfully.
         </div>
 
-        <!-- login form -->
         <form method="post" action="/login">
             <div class="input-group">
                 <label>Username</label>
@@ -193,7 +178,7 @@
             <button type="submit">Login →</button>
         </form>
         <div class="footer-brand">
-            @copy Janvier &Ange Airtel Digital & Social Transformation
+            @copy Janvier & Ange Airtel Digital & Social Transformation
         </div>
     </div>
 </div>
