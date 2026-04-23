@@ -18,14 +18,23 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (userRepository.findByUsername("Admin").isEmpty()) {
-            User admin = new User();
-            admin.setUsername("Admin");
-            admin.setPassword(passwordEncoder.encode("Admin123"));
-            admin.setRole("ADMIN");
-            admin.setEnabled(true);
-            userRepository.save(admin);
-            System.out.println("Default admin user created: Admin / Admin123");
+        // Remove the old default Admin user if it exists (to enforce new credentials)
+        userRepository.findByUsername("Admin").ifPresent(admin -> {
+            userRepository.delete(admin);
+            System.out.println("Removed old Admin user.");
+        });
+
+        // Create the new SysAdmin user with required registration numbers
+        if (userRepository.findByUsername("24RP04809").isEmpty()) {
+            User sysAdmin = new User();
+            sysAdmin.setUsername("24RP04809");
+            sysAdmin.setPassword(passwordEncoder.encode("24RP04727"));
+            sysAdmin.setRole("ADMIN");
+            sysAdmin.setEnabled(true);
+            userRepository.save(sysAdmin);
+            System.out.println("SysAdmin created: 24RP04809 / 24RP04727");
+        } else {
+            System.out.println("SysAdmin already exists.");
         }
     }
 }
