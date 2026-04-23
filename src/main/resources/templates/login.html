@@ -45,30 +45,38 @@
             border-bottom: 1px solid #e9ecef;
             padding-bottom: 12px;
         }
+        /* Demo credentials – vertical layout */
         .demo-credentials {
             background: #e9f5ff;
             border-left: 4px solid #2ecc71;
-            padding: 12px 16px;
+            padding: 14px 16px;
             border-radius: 12px;
             margin-bottom: 28px;
             font-size: 14px;
             color: #1e2a3a;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
+            flex-direction: column;   /* ✅ vertical stacking */
+            gap: 6px;
         }
-        .demo-credentials span {
-            font-weight: 600;
+        .demo-credentials .cred-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .demo-credentials strong {
             color: #2c3e50;
         }
         .demo-credentials .highlight {
             background: #2ecc71;
             color: white;
-            padding: 2px 10px;
+            padding: 4px 12px;
             border-radius: 30px;
             font-size: 12px;
             font-weight: bold;
+            display: inline-block;
+            align-self: flex-start;
+            margin-top: 4px;
         }
         .input-group {
             text-align: left;
@@ -150,12 +158,17 @@
         <h1>📱 Airtel Inventory</h1>
         <div class="subtitle">Sign in to continue</div>
 
-        <!-- Demo credentials block -->
+        <!-- Demo credentials – stacked vertically -->
         <div class="demo-credentials">
-            🔐 <strong>Default credentials:</strong> 
-            <span>Username: <strong>Admin</strong></span> 
-            <span style="color:#2ecc71;">|</span> 
-            <span>Password: <strong>Admin123</strong></span>
+            <div class="cred-row">
+                <span>🔐 <strong>Default credentials:</strong></span>
+            </div>
+            <div class="cred-row">
+                <span>👤 Username: <strong>Admin</strong></span>
+            </div>
+            <div class="cred-row">
+                <span>🔑 Password: <strong>Admin123</strong></span>
+            </div>
             <div class="highlight">Try now</div>
         </div>
 
