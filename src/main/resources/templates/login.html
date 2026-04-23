@@ -40,6 +40,16 @@
             margin-bottom: 30px;
             font-size: 14px;
         }
+        .credentials-hint {
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            text-align: center;
+            color: #2c3e50;
+            border-left: 4px solid #2ecc71;
+        }
         .input-group {
             text-align: left;
             margin-bottom: 20px;
@@ -108,6 +118,11 @@
     <div class="login-card">
         <h1>📱 Airtel Inventory</h1>
         <p>Sign in to continue</p>
+
+        <!-- ✅ Default credentials hint -->
+        <div class="credentials-hint">
+            🔐 <strong>Demo credentials:</strong> Username: <strong>Admin</strong> &nbsp;|&nbsp; Password: <strong>Admin123</strong>
+        </div>
 
         <div th:if="${param.error}" class="error-message">
             Invalid username or password. Please try again.
