@@ -74,8 +74,8 @@ Dashboard opens after successful login
 
 Default Administrator Account:
 
-Username: Admin
-Password: Admin123
+Username: 24RP04809
+Password: 24RP04727
 
 Only Airtel Administrator is allowed to access and manage system operations.
 
@@ -181,7 +181,7 @@ Tables are automatically generated using Spring JPA configuration.
 9. Package Structure
 
 Base Package:
-com.airtel.inventory
+rw.airtel.inventory
 
 Main packages:
 
@@ -247,7 +247,7 @@ http://localhost:8080
 Login credentials:
 
 Username: 24RP04809
-Password: Admin123
+Password: 24RP04727
 
 13. Target Users
 
