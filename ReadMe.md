@@ -170,9 +170,9 @@ Dashboard opens
 
 
 
-**Username: Admin**
+**Username: 24RP04809**
 
-**Password: Admin123**
+**Password: 24RP04727**
 
 
 
@@ -388,7 +388,7 @@ Base Package
 
 
 
-com.airtel.inventory
+rw.airtel.inventory
 
 
 
