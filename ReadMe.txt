@@ -246,7 +246,7 @@ http://localhost:8080
 
 Login credentials:
 
-Username: Admin
+Username: 24RP04809
 Password: Admin123
 
 13. Target Users
