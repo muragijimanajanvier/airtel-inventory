@@ -642,3 +642,40 @@ Reliability of reporting
 
 Asset control
 
+**15. Online Deployment (Remote Access)**
+To allow end‑users to access the system from anywhere, the application has been deployed to a cloud platform (Render) and the database moved to a cloud PostgreSQL instance (Neon). The live version is fully functional and mirrors the local system.
+
+**Live Application URL
+https://airtel-inventory-id80.onrender.com**
+
+**Note:** Render’s free plan spins down the service after 15 minutes of inactivity. The first request after a sleep period may take 30–50 seconds to wake up. Please be patient – once awake, the application responds normally.
+
+Database Migration (MySQL → PostgreSQL)
+Originally the system used a local MySQL database.
+
+Because Render works best with PostgreSQL, all tables and data were migrated to a Neon PostgreSQL cloud database.
+
+The migration was done using DBeaver (data transfer) and the schema automatically adapted via Hibernate’s ddl-auto=update.
+
+The result is a fully cloud‑based database that is accessible from the deployed application.
+
+Access the Live System
+Open the URL above.
+
+Wait up to 60 seconds if the service is waking.
+
+**Log in with the same SysAdmin credentials (24RP04809 / 24RP04727).**
+
+All features (assets, employees, assignments, reports, audit log) work exactly as they do locally.
+
+**Technology Stack for Deployment**
+Hosting: Render (free tier, auto‑deploys from GitHub)
+
+Database: PostgreSQL (Neon cloud)
+
+Backend: Spring Boot 2.7.18, Spring Security, Spring Data JPA
+
+Frontend: Thymeleaf (inline CSS)
+
+
+
