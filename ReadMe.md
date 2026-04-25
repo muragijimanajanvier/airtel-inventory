@@ -396,7 +396,7 @@ rw.airtel.inventory
 
 
 
-com.airtel.inventory
+rw.airtel.inventory
 
 │
 
@@ -590,9 +590,9 @@ Run Spring Boot application
 
 
 
-Username: Admin
+Username: 24RP04809
 
-Password: Admin123
+Password: 24RP04727
 
 
 
